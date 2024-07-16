@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# Blog System  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Objective: ExpressJS API - Inventory Management System
 
-## Available Scripts
+### 1. What is the main objective of the project?
+	- ExpressJS API - blog System with Simple post CRUD functionalities and commenting functionalities
 
-In the project directory, you can run:
+### 2. Who are the target users of the application?
+	- Bloggers and blog readers
 
-### `npm start`
+### 3. What are the core features or functionalities required?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+	- User Registration and Authentication.
+		- Register a user with a username and email
+		- Login functionality
+		- Get details of user
+	- Basic CRUD operations for managing blog post (Create, Read, Update, Delete).
+		- All users ability to retrieve all blog posts.
+        - all users ability to retrieve a single blog post.
+		- Authenticated user ability to create a new post.
+		- Authenticated user to update their own existing post.
+		- Authenticated user to delete their own post.
+		- Admin users ability to delete post.
+    - Comment functionalities
+		- All user ability to view all comment
+        - Authenticated user ability to add a comments.
+        - Admin users ability to delete any comment
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 4. What data will the application need to store and manage?
 
-### `npm test`
+	- User information 
+		- username
+        - email
+		- password
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	- Movie
+		- title
+		- content
+        - author
+		- comments
+		- dateCreated
+	
+	- Comments
+		- content
+		- author
+		- blog
+		- dateCreated
 
-### `npm run build`
+### 5. Are there any specific technical requirements or constraints?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+	- Express.js API.
+	- MongoDB with Mongoose for data storage and management.
+	- RESTful Architecture.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 6. What are the security and authentication requirements?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+	- Token-based Authentication (JWT).
+	- Brcypt hash
 
-### `npm run eject`
+### 7. What are your routes and controllers?
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+	Routes:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+	User Routes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+	POST /users/login - User login route.
+	POST /users/register - User registration route.
+	GET / users/details - Get information for a certail user
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+	Blog Routes:
 
-## Learn More
+	POST /blogs/ - Add a new blog post.
+    GET /blogs/ - Retrieve a list of all blog post.
+	GET /blogs/:postId - Retrieve a specific blog post by its ID.
+	PATCH /blogs/:postId - Update an existing blog post by its ID.
+	DELETE /blogs/:postId - Delete a blog post by its ID.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+	Comments Route
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    PATCH /comments/:postId - Add a comment to a blog post by its ID
+    GET /comments/:postId - get all comments of a blog post by its ID
+	DELETE /comments/:commentId - Delete a comment by its comment ID
 
-### Code Splitting
+	Controllers:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+	User Controller:
 
-### Analyzing the Bundle Size
+	registerUser
+	loginUser
+	getProfile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+	Blog Controller:
 
-### Making a Progressive Web App
+	addPost
+	getAllPosts
+	getSinglePost
+	updatePost
+	deletePost
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+	Comment Controller:
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+	addComment
+	getComments
+	deleteComment
