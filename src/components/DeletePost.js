@@ -56,7 +56,6 @@ export default function DeletePost({ post, postTitle, fetchData }) {
             }
         }
         catch (err) {
-            console.log('Error in deleting workout: ', err)
             Swal.fire({
                 title: 'Something went wrong',
                 icon: 'error',

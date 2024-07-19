@@ -18,7 +18,7 @@ export default function CommentCard({ commentProp, getComments }) {
             
             <Card.Body className="text-center">
                 <Card.Title><h2>"{content}"</h2></Card.Title>
-                <Card.Subtitle>By: User{username}</Card.Subtitle>
+                <Card.Subtitle>By: {username}</Card.Subtitle>
             </Card.Body>
         </Card>
     );

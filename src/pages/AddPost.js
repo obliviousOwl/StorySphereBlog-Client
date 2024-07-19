@@ -38,7 +38,6 @@ export default function AddPost() {
                 })
             });
             const data = await response.json();
-            console.log(data)
 
             if (data !== null) {
                 Swal.fire({

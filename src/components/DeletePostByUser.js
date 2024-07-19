@@ -1,13 +1,10 @@
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { XCircle } from 'react-bootstrap-icons';
 import { useNavigate } from "react-router-dom";
 
-
 export default function DeletePostByUser({ post, postTitle }) {
-
     const navigate = useNavigate()
-
 
     const deletePost = (post) => {
         Swal.fire({
@@ -41,45 +38,44 @@ export default function DeletePostByUser({ post, postTitle }) {
                     text: 'The post you are trying to delete could not be found'
                 })
                 navigate('/posts');
-            }
-            else if (data.error === 'Error in deleting Post') {
+            } else if (data.error === 'Error in deleting Post') {
                 Swal.fire({
                     title: 'Error in deleting Post',
                     icon: 'error'
                 })
-            }
-            else if (data.message === 'Post Deleted Successfully') {
+            } else if (data.message === 'Post Deleted Successfully') {
                 Swal.fire({
                     title: 'Post has been deleted',
                     icon: 'success'
                 })
                 navigate('/posts');
             }
-        }
-        catch (err) {
-            console.log('Error in deleting workout: ', err)
+        } catch (err) {
             Swal.fire({
                 title: 'Something went wrong',
                 icon: 'error',
                 text: 'Please try again'
             })
         }
-
     }
 
     return (
-
-        <Button
-        variant="link"
-        className="position-absolute top-0 end-0 m-2 p-0"
-        onClick={() => deletePost(post)}
-        style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            color: 'red'
-        }}
-    >
-        <XCircle size={24} />
-    </Button>
+        <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>Delete</Tooltip>}
+        >
+            <Button
+                variant="link"
+                className="position-absolute top-0 end-0 m-2 p-0"
+                onClick={() => deletePost(post)}
+                style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    color: 'red'
+                }}
+            >
+                <XCircle size={24} />
+            </Button>
+        </OverlayTrigger>
     )
 }

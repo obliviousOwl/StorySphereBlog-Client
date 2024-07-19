@@ -5,13 +5,11 @@ import Swal from "sweetalert2";
 import CommentCard from '../components/CommentCard';
 import DeletePostByUser from "../components/DeletePostByUser";
 import UserContext from "../UserContext";
+import UpdatePost from "../components/UpdatePost";
 
 export default function PostView() {
-
-    const { user } = useContext(UserContext)
-
+    const { user } = useContext(UserContext);
     const { postId } = useParams();
-
     const [post, setPost] = useState({ id: '', title: '', author: '', content: '', date: '' });
     const [userId, setUserId] = useState('');
     const [newComment, setNewComment] = useState('');
@@ -33,11 +31,7 @@ export default function PostView() {
                     content: data.content,
                     date: data.dateCreated,
                 });
-                setUserId(data.author._id)
-
-
-
-
+                setUserId(data.author._id);
             } else {
                 Swal.fire({ title: 'Error in getting post', icon: 'error' });
             }
@@ -54,7 +48,7 @@ export default function PostView() {
             const data = await response.json();
             if (data.error === "No comments found") {
                 setHeaderText('No Comments yet');
-                setComments([])
+                setComments([]);
             } else if (data.comments) {
                 setHeaderText('Comments');
                 setComments(data.comments.reverse());
@@ -112,24 +106,23 @@ export default function PostView() {
                 <Row>
                     <Col xs={12} sm={10} md={8} lg={{ span: 6, offset: 3 }}>
                         <Card>
-                            {
-                                user.id === userId || user.isAdmin ?
-                                    <DeletePostByUser post={post.id} postTitle={post.title} />
-                                    : null
-                            }
-
                             <Card.Body className="text-center">
                                 <Card.Title><h2>{post.title}</h2></Card.Title>
                                 <Card.Subtitle>by: {post.author}</Card.Subtitle>
                                 <Card.Text>{post.content}</Card.Text>
                                 <Card.Text>{formattedDateTime}</Card.Text>
                             </Card.Body>
+                            <div className="d-flex justify-content-end">
+                                {user.id === userId && <UpdatePost post={post.id} fetchData={getPostData}/>}
+                                {(user.id === userId || user.isAdmin) && (
+                                    <DeletePostByUser post={postId} postTitle={post.title} />
+                                )}
+                            </div>
                         </Card>
                     </Col>
                 </Row>
             </Container>
-            {
-                user.id &&
+            {user.id && (
                 <Container className="my-5">
                     <Row>
                         <Col xs={12} sm={10} md={8} lg={{ span: 6, offset: 3 }}>
@@ -152,9 +145,7 @@ export default function PostView() {
                         </Col>
                     </Row>
                 </Container>
-            }
-
-
+            )}
             <Container className="mt-3">
                 <Row>
                     <Col xs={12} sm={10} md={8} lg={{ span: 6, offset: 3 }}>
